@@ -1,0 +1,162 @@
+﻿@model List<CoveringTask.Models.Algorithms>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <title>Список відповідей на задачі</title>
+</head>
+<body>
+    <div class="panel-body">
+        <h2>Список відповідей на задачі</h2>
+        @if (Model.Count != 0)
+        {
+            <table class="table table-sm table-striped table-bordered" style="background: whitesmoke">
+                <thead style="background: dimgray; color: white">
+                    <tr>
+                        <th>Номер задачі</th>
+                        <th>Матриця</th>
+                        <th>Шляхи</th>
+                        <th>Результат</th>
+                        <th>Час виконання</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var mas = Repository.Responses;
+
+                    }
+                    @foreach (Algorithms r in Model)
+                    {
+
+                        <tr>
+
+                            <td>@r.number_task.ToString()</td>
+                            <td>
+                                <table class="table table-sm table-striped table-bordered">
+                                    @for (int i = 0; i < mas[r.number_task - 1].number_of_nodes; i++)
+                                    {
+                                        <tr>
+                                            @for (int j = 0; j < mas[r.number_task - 1].number_of_nodes; j++)
+                                            {
+                                                <th>@mas[r.number_task - 1].mas_weight[i, j]</th>
+                                            }
+                                        </tr>
+                                    }
+                                </table>
+                            <td>
+                                @if (r.list_henry_laboder_non_weight != null)
+                                {
+                                    @:(метод Аннрі-Лабодера і Белмаса без урахвування ваг)
+                                    @foreach (List<int> l in r.list_henry_laboder_non_weight)
+                                    {
+                                        <p>@string.Join("->", l)</p>
+
+                                    }
+                                    @: <br />
+                                }
+
+                                @if (r.list_exact_alg != null)
+                                {
+                                    @:(точний алгоритм з урахуванням ваг)
+                                    @foreach (List<int> l in r.list_exact_alg)
+                                    {
+                                        <p>@string.Join("->", l)</p>
+                                    }
+                                    @: <br />
+                                }
+
+                                @if (r.list_exact_alg_non_weights != null)
+                                {
+                                    @:(точний алгоритм буз урахування ваг)
+                                    @foreach (List<int> l in r.list_exact_alg_non_weights)
+                                    {
+                                        <p>@string.Join("->", l)</p>
+                                    }
+                                    @: <br />
+                                }
+
+                                @if (r.list_greedy_alg != null)
+                                {
+                                    @:(жадібний алгоритм)
+                                    @foreach (List<int> l in r.list_greedy_alg)
+                                    {
+                                        <p>@string.Join("->", l)</p>
+                                    }
+                                    @: <br />
+                                }
+                            </td>
+                            <td>
+                                @if (r.list_henry_laboder_non_weight != null)
+                                {
+                                    <p>Кількість кроків:<b> @r.number_of_paths_henry_laboder</b> (метод Анрі-Лабодера <b>без урахування ваг</b>)</p>
+                                }
+                                @if (r.list_exact_alg != null)
+                                {
+                                    <p>Сума ваг: <b>@r.sum_exact</b> (точний алгоритм <b>з урахуванням ваг</b>)</p>
+                                }
+                                @if (r.list_exact_alg_non_weights != null)
+                                {
+                                    <p>Кількість кроків:<b> @r.number_of_paths</b> (точний алгоритм <b>без урахування ваг</b>)</p>
+                                }
+                                @if (r.list_greedy_alg != null)
+                                {
+                                    <p>Сума ваг: <b>@r.sum_greedy</b> (жадібний алгоритм)</p>
+                                }
+                            </td>
+                            <td>
+                                @if (r.list_henry_laboder_non_weight != null)
+                                {
+                                    <p>
+                                        Алгоритм Анрі-Лабодера:
+                                        <br />
+                                        @r.time_henry_laboder_non_weight ms.
+                                    </p>
+                                }
+
+                                @if (r.list_exact_alg != null)
+                                {
+                                    <p>
+                                        Точний алгоритм з урахуванням ваг:
+                                        <br />
+                                        @r.time_exact ms.
+                                    </p>
+                                }
+
+                                @if (r.list_exact_alg_non_weights != null)
+                                {
+                                    <p>
+                                        Точний алгоритм без урахування ваг:
+                                        <br />
+                                        @r.time_exact_non_weights ms.
+                                    </p>
+                                }
+
+                                @if (r.list_greedy_alg != null)
+                                {
+                                    <p>
+                                        Жадібний алгоритм:
+                                        <br />
+                                        @r.time_greedy ms.
+                                    </p>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        @if (Model.Count == 0)
+        {
+            <div class="center-block"><h4> Немає вирішених задач. Натисніть на кнопку для вирішення задачі.</h4></div>
+            <a style="width: 200px" class="btn btn-primary" asp-action="AlgorithmView">Вирішити задачу</a>
+
+        }
+    </div>
+</body>
+</html>
+

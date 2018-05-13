@@ -1,0 +1,35 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+
+    <div>
+        <h1>КУРСОВА РОБОТА</h1>
+        <h3>З дисципліни <b>"Додаткові розділи дослідження операцій"</b> та  <br /><b>"Технології розробки програмного забезпечення"</b><br>на тему</h3>
+        <h3>
+            <b>Задача про покриття</b>
+            <a class="bnt btn-lg" asp-action="InfoView"><i class="glyphicon glyphicon-question-sign"> </i> </a>
+        </h3>
+        <div class="btn-group">
+            <a style="width: 200px" class="btn btn-primary" asp-action="AlgorithmView">Вирішити задачу</a>
+            <a style="width: 200px;" class="btn btn-success" asp-action="AnswerListView">Список результатів</a>
+        </div>
+        <br /><br />
+        <div class="btn-group">
+            <a style="width: 200px" class="btn btn-primary" asp-action="GeneratorView">Генерувати задачу</a>
+            <a style="width: 200px;" class="btn btn-success" asp-action="GeneratorListView">Список задач</a>
+        </div>
+        <br /><br />
+        <div>
+
+        </div>
+    </div>
+</body>
+</html>

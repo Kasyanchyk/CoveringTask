@@ -1,0 +1,10 @@
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\bin\Any CPU\Release\netcoreapp2.0\CoveringTask.deps.json
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\bin\Any CPU\Release\netcoreapp2.0\CoveringTask.runtimeconfig.json
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\bin\Any CPU\Release\netcoreapp2.0\CoveringTask.runtimeconfig.dev.json
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\bin\Any CPU\Release\netcoreapp2.0\CoveringTask.dll
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\bin\Any CPU\Release\netcoreapp2.0\CoveringTask.pdb
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\obj\Any CPU\Release\netcoreapp2.0\CoveringTask.csproj.CoreCompileInputs.cache
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\obj\Any CPU\Release\netcoreapp2.0\CoveringTask.AssemblyInfoInputs.cache
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\obj\Any CPU\Release\netcoreapp2.0\CoveringTask.AssemblyInfo.cs
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\obj\Any CPU\Release\netcoreapp2.0\CoveringTask.dll
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\obj\Any CPU\Release\netcoreapp2.0\CoveringTask.pdb

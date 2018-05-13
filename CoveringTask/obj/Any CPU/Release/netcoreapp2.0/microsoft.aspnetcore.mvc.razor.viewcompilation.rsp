@@ -1,0 +1,12 @@
+D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask
+--output-path=obj\Any CPU\Release\netcoreapp2.0\
+--application-name=CoveringTask
+--content-root=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Home\GeneratorListView.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Home\GeneratorView.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Home\Index.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Shared\Error.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Shared\_Layout.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\Shared\_ValidationScriptsPartial.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\_ViewImports.cshtml
+--file=D:\Универ\6 semestr\Курсач\CoveringTask\CoveringTask\Views\_ViewStart.cshtml

@@ -1,0 +1,54 @@
+﻿@model CoveringTask.Models.Generator
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Generator</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/style.css"/>
+</head>
+<body>
+    <div class="center-block" style="width: 400px">
+        <h3 class="text-center">Генератор задач<br /></h3>
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <form class="p-a-1" asp-action="GeneratorView" method="post">
+
+                    <div class="form-group">
+                        <label asp-for="number_of_nodes">Кількість вузлів:</label>
+                        <input class="form-control" asp-for="number_of_nodes" placeholder="Введіть число в діапазоні від 1 до 100" />
+                        <div><span asp-validation-for="number_of_nodes"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="min_weight">Мінімальна вага ребра:</label>
+                        <input class="form-control" asp-for="min_weight" placeholder="Введіть число в діапазоні від 1 до 1000" />
+                        <div><span asp-validation-for="min_weight"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="max_weight">Максимальна вага ребра:</label>
+                        <input class="form-control" asp-for="max_weight" placeholder="Введіть число в діапазоні від 1 до 1000" />
+                        <div><span asp-validation-for="max_weight"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="num_iter">Скільки ви хочете згенерувати задач:</label>
+                        <input class="form-control" asp-for="num_iter"value="1" placeholder="Введіть чило в діапазоні від 1 до 100"/>
+                        <div><span asp-validation-for="num_iter"></span></div>
+                    </div>
+
+                    <div>
+                        <button class="btn center-block btn-primary" type="submit">
+                            Геннерувати
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-danger" ><b>@Generator.message</b></p>
+</body>
+</html>
+

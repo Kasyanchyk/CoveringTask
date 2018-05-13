@@ -1,0 +1,71 @@
+﻿@model List<CoveringTask.Models.Generator>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <title>Список задач</title>
+</head>
+<body>
+    <div class="panel-body">
+        <h2>Список даних генерованих задач</h2>
+        @if (Model.Count != 0)
+        {
+            <table class="table table-sm table-striped table-bordered" style="background: whitesmoke">
+                <thead style="background: dimgray; color: white">
+                    <tr>
+                        <th>Номер задачі</th>
+                        <th>Кількість вузлів</th>
+                        <th>Мінімальна вага ребра</th>
+                        <th>Максимальна вага ребра</th>
+                        <th>Масив</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int index = 0;
+
+                    }
+                    @foreach (CoveringTask.Models.Generator r in Model)
+                    {
+
+                        <tr>
+                            @{
+                                index++;
+                            }
+                            <th>@index</th>
+                            <td>@r.number_of_nodes.ToString()</td>
+                            <td>@r.min_weight.ToString()</td>
+                            <td>@r.max_weight.ToString()</td>
+                            <td>
+                                <table class="table table-sm table-striped table-bordered">
+                                    @for (int i = 0; i < r.number_of_nodes; i++)
+                                    {
+                                        <tr>
+                                            @for (int j = 0; j < r.number_of_nodes; j++)
+                                            {
+                                                <th>@r.mas_weight[i, j]</th>
+                                            }
+                                        </tr>
+                                    }
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        @if (Model.Count == 0)
+        {
+            <div class="center-block "><h4> Немає згенерованих задач. Натисніть на кнопку для генерації задач.</h4></div>
+            <a style="width: 200px" class="btn btn-primary" asp-action="GeneratorView">Згенерувати задачу</a>
+        }
+
+    </div>
+</body>
+</html>
+

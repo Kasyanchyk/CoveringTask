@@ -1,0 +1,120 @@
+﻿@model CoveringTask.Models.Algorithms;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Answer</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div>
+        <h3>Сторінка розв'язання задачі<br /></h3>
+        <div class="panel panel-success">
+            <div class="panel-heading text-center"></div>
+            <div class="panel-body">
+                <h1>Розв'язок задачі №@Model.number_task</h1>
+
+                @if (Model.cheeck_henre_laboder_non_weignt)
+                {
+                    <br />
+                    <h4>Розв'язок методом Анрі-Лабодера і Делмаса(без урахування ваг)</h4>
+                    <div class="panel panel-default">
+                        <div style="margin: 20px">
+                            @if (Model.list_henry_laboder_non_weight != null)
+                            {
+                                @foreach (List<int> l in Model.list_henry_laboder_non_weight)
+                                {
+                                    <p>@string.Join("->", l)</p>
+
+                                }
+                                <p>Результат: @Model.number_of_paths_henry_laboder</p>
+                                <p>Час: @Model.time_henry_laboder_non_weight ms.</p>
+                            }
+                            else
+                            {
+                                @: Непередбачена помилка
+                            }
+                        </div>
+
+                    </div>
+                }
+                @if (Model.check_exact)
+                {
+                    <br />
+                    <h4>Розв'язок точним алгоритмом (з урахуванням ваг)</h4>
+                    <div class="panel panel-default">
+                        <div style="margin: 20px">
+                            @if (Model.list_exact_alg != null)
+                            {
+                                @foreach (List<int> l in Model.list_exact_alg)
+                                {
+                                    <p>@string.Join("->", l)</p>
+
+                                }
+                                <p>Результат: @Model.sum_exact</p>
+                                <p>Час: @Model.time_exact ms.</p>
+                            }
+                            else
+                            {
+                                @: Непередбачена помилка
+                            }
+                        </div>
+
+                    </div>
+                }
+                @if (Model.check_exact_non_weights)
+                {
+                    <br />
+                    <h4>Розв'язок точним алгоритмом (буз урахуванням ваг)</h4>
+                    <div class="panel panel-default">
+                        <div style="margin: 20px">
+                            @if (Model.list_exact_alg_non_weights != null)
+                            {
+                                @foreach (List<int> l in Model.list_exact_alg_non_weights)
+                                {
+                                    <p>@string.Join("->", l)</p>
+
+                                }
+                                <p>Кількість кроків: @Model.number_of_paths</p>
+                                <p>Час: @Model.time_exact_non_weights ms.</p>
+                            }
+                            else
+                            {
+                                @: Непередбачена помилка
+                            }
+                        </div>
+                    </div>
+                }
+                @if (Model.check_greedy)
+                {
+                    <br />
+                    <h4>Розв'язок жадібним алгоритмом</h4>
+                    <div class="panel panel-default">
+                        <div style="margin: 20px">
+                            @if (Model.list_greedy_alg != null)
+                            {
+                                @foreach (List<int> l in Model.list_greedy_alg)
+                                {
+                                    <p>@string.Join("->", l)</p>
+
+                                }
+                                <p>Результат: @Model.sum_greedy</p>
+                                <p>Час: @Model.time_greedy ms.</p>
+                            }
+                            else
+                            {
+                                @: Непередбачена помилка
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

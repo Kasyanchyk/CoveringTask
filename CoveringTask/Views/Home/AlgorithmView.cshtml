@@ -1,0 +1,71 @@
+﻿@model CoveringTask.Models.Algorithms
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вирішення задачі</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/style.css" />
+</head>
+<body>
+    <div class="center-block" style="width: 500px">
+        <h3 class="text-center">Сторінка розв'язання задачі<br /></h3>
+        <div class="panel panel-primary" >
+            <div class="panel-body" >
+                <form class="p-a-1" asp-action="AlgorithmView" method="post">
+
+                    <div class="form-group">
+                        <label asp-for=" number_task">Номер задачі: (@Algorithms.message2) </label>
+                        <input class="form-control" asp-for="number_task" />
+                        <div><span asp-validation-for="number_task"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="start">Початкова вершина</label>
+                        <input class="form-control" asp-for="start" />
+                        <div><span asp-validation-for="start"></span></div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="finish">Термінальна вершина</label>
+                        <input class="form-control" asp-for="finish" />
+                        <div><span asp-validation-for="finish"></span></div>
+                    </div>
+
+                    Вирішити алгоритмом:
+                    <br />
+                    <div>
+                        <p>
+                            <input asp-for="@Model.cheeck_henre_laboder_non_weignt" type="checkbox" checked="checked" />
+                            <label>Алгоритм Анрі-Лабодера і Делмаса (для незваженого графа)</label>
+                        </p>
+                        <p>
+                            <input asp-for="@Model.check_exact"  type="checkbox" checked="checked" />
+                            <label>Точний алгоритм (для зваженого графа)</label>
+                        </p>
+                        <p>
+                            <input asp-for="@Model.check_exact_non_weights"  type="checkbox" checked="checked" />
+                            <label>Точний алгоритм (для незваженого графа)</label>
+                        </p>
+                        <p>
+                            <input asp-for="@Model.check_greedy"  type="checkbox" checked="checked" />
+                            <label>Жадібний алгоритм</label>
+                        </p>
+                        <p style="color: gray">* Вирішення великих задача займає багато часу. Для вирішенням точним алгоритмом, бажано використовувати графи розмірність до 6-ти вершин.</p>
+
+                    </div>
+                    <div class="text-center">
+                        <button class="btn center-block btn-primary" type="submit">
+                            Вирішити задачу
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <p class="text-center text-danger"><b>@Algorithms.message</b></p>
+    @*<div asp-validation-summary="All"></div>*@
+</body>
+</html>
+
