@@ -90,7 +90,7 @@
 
                                 @if (r.list_exact_alg != null)
                                 {
-                                    @:(точний алгоритм з урахуванням ваг)
+                                    @:(алгоритм повного перебору з урахуванням ваг)
                                     @foreach (List<int> l in r.list_exact_alg)
                                     {
                                         <p>@string.Join("->", l)</p>
@@ -100,7 +100,7 @@
 
                                 @if (r.list_exact_alg_non_weights != null)
                                 {
-                                    @:(точний алгоритм буз урахування ваг)
+                                    @:(алгоритм повного перебору без урахування ваг)
                                     @foreach (List<int> l in r.list_exact_alg_non_weights)
                                     {
                                         <p>@string.Join("->", l)</p>
@@ -129,11 +129,11 @@
                                 }
                                 @if (r.list_exact_alg != null)
                                 {
-                                    <p>Сума ваг: <b>@r.sum_exact</b> (точний алгоритм <b>з урахуванням ваг</b>)</p>
+                                    <p>Сума ваг: <b>@r.sum_exact</b> (алгоритм повного перебору <b>з урахуванням ваг</b>)</p>
                                 }
                                 @if (r.list_exact_alg_non_weights != null)
                                 {
-                                    <p>Кількість кроків:<b> @r.number_of_paths</b> (точний алгоритм <b>без урахування ваг</b>)</p>
+                                    <p>Кількість кроків:<b> @r.number_of_paths</b> (алгоритм повного перебору <b>без урахування ваг</b>)</p>
                                 }
                                 @if (r.list_greedy_alg != null)
                                 {
@@ -161,7 +161,7 @@
                                 @if (r.list_exact_alg != null)
                                 {
                                     <p>
-                                        Точний алгоритм з урахуванням ваг:
+                                        Алгоритм повного перебору з урахуванням ваг:
                                         <br />
                                         @r.time_exact ms.
                                     </p>
@@ -170,7 +170,7 @@
                                 @if (r.list_exact_alg_non_weights != null)
                                 {
                                     <p>
-                                        Точний алгоритм без урахування ваг:
+                                        Алгоритм повного перебору без урахування ваг:
                                         <br />
                                         @r.time_exact_non_weights ms.
                                     </p>
