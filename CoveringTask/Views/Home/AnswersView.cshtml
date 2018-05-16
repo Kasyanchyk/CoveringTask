@@ -18,6 +18,31 @@
             <div class="panel-body">
                 <h1>Розв'язок задачі №@Model.number_task</h1>
 
+                @if (Model.check_henry_laboder_weight)
+                {
+                    <br />
+                    <h4>Розв'язок методом Анрі-Лабодера і Делмаса(з урахуванням ваг)</h4>
+                    <div class="panel panel-default">
+                        <div style="margin: 20px">
+                            @if (Model.list_henry_laboder_weight != null)
+                            {
+                                @foreach (List<int> l in Model.list_henry_laboder_weight)
+                                {
+                                    <p>@string.Join("->", l)</p>
+
+                                }
+                                <p>Результат: @Model.sum_henry_laboder</p>
+                                <p>Час: @Model.time_henry_laboder_weight ms.</p>
+                            }
+                            else
+                            {
+                                @: Непередбачена помилка
+                            }
+                        </div>
+
+                    </div>
+                }
+
                 @if (Model.cheeck_henre_laboder_non_weignt)
                 {
                     <br />
@@ -102,7 +127,7 @@
                                     <p>@string.Join("->", l)</p>
 
                                 }
-                                <p>Результат: @Model.sum_greedy</p>
+                                <p>Результат: @Model.sum_greedy </p>
                                 <p>Час: @Model.time_greedy ms.</p>
                             }
                             else

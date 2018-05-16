@@ -52,15 +52,16 @@ namespace CoveringTask.Models
             {
                 for (int j = i + 1; j < number_of_nodes; j++)
                 {
-                    int r = zero_or_one.Next(0, 2);
-                    if (r == 0)
+                    decimal r = zero_or_one.Next(0, 11);
+                    r = r / 10;
+                    if (r < (decimal)0.5)
                     {
                         mas_weight[i, j] = 0;
                         mas_weight[j, i] = 0;
                     }
                     else
                     {
-                        mas_weight[i, j] = rand.Next(min_weight-1, max_weight+1);
+                        mas_weight[i, j] = rand.Next(min_weight, max_weight+1);
                         mas_weight[j, i] = mas_weight[i, j];
                     }
                 }

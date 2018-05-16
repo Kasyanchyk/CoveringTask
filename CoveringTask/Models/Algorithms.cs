@@ -14,21 +14,25 @@ namespace CoveringTask.Models
         public List<List<int>> list_exact_alg = new List<List<int>>();
         public List<List<int>> list_exact_alg_non_weights = new List<List<int>>();
         public List<List<int>> list_henry_laboder_non_weight = new List<List<int>>();
+        public List<List<int>> list_henry_laboder_weight = new List<List<int>>();
 
-        public long time_greedy { get; set; }
+        public double time_greedy { get; set; }
         public long time_exact { get; set; }
         public long time_exact_non_weights { get; set; }
         public long time_henry_laboder_non_weight { get; set; }
+        public long time_henry_laboder_weight { get; set; }
 
         public int sum_greedy { get; set; }
         public int sum_exact { get; set; }
         public int number_of_paths { get; set; }
         public int number_of_paths_henry_laboder { get; set; }
+        public int sum_henry_laboder { get; set; }
 
         public bool check_greedy { get; set; } = true;
         public bool check_exact { get; set; } = true;
         public bool check_exact_non_weights { get; set; } = true;
         public bool cheeck_henre_laboder_non_weignt { get; set; } = true;
+        public bool check_henry_laboder_weight { get; set; } = true;
 
         [Required(ErrorMessage = "Будь ласка, введіть ціле число більше 1-ці ")]
         [Range(1, int.MaxValue, ErrorMessage = "Будь ласка, введіть ціле число більше 1-ці в поле 'Номер задачі' ")]
@@ -45,6 +49,7 @@ namespace CoveringTask.Models
         public static string message { get; set; }
         public static string message2 { get; set; }
 
+
         public void GreedyAlg(Algorithms alg)
         {
             var rep = Repository.Responses;
@@ -54,7 +59,8 @@ namespace CoveringTask.Models
             Greedy(rep[number_task].mas_weight, rep[number_task].number_of_nodes, start, finish);
             sum_greedy = SumRouteGreedy(rep[number_task].mas_weight, rep[number_task].number_of_nodes);
             stopWatch.Stop();
-            time_greedy = stopWatch.ElapsedMilliseconds;
+            TimeSpan ts = stopWatch.Elapsed;
+            time_greedy = ts.TotalMilliseconds;
         }
 
         private int Min(int[] numbers)
@@ -89,9 +95,11 @@ namespace CoveringTask.Models
         {
             //0 - не була пройдена
             //1- була пройдена
+            //2 - було пройдена теперешнім шляхом
             list_greedy_alg.Add(new List<int>());
             list_greedy_alg[0].Add(start);
             int count = 0;
+            int kostul = 0;
             int[] array_indexes = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -109,9 +117,18 @@ namespace CoveringTask.Models
                 array[pre_current_index] = int.MaxValue;
                 array[start] = int.MaxValue;
 
-                while (true)
+                while (true) 
                 {
                     int min = Min(array);
+
+                    if (array[min] == int.MaxValue)
+                    {
+                        array_indexes[current_index] = 2;
+                        current_index = list_greedy_alg[count][list_greedy_alg[count].Count - 2];
+                        pre_current_index = list_greedy_alg[count][list_greedy_alg[count].Count - 3];
+                        list_greedy_alg[count].RemoveAt(list_greedy_alg[count].Count - 1);
+                        break;
+                    }
                     if (array_indexes[min] != 1 && array_indexes[min] != 2)
                     {
                         pre_current_index = current_index;
@@ -147,17 +164,46 @@ namespace CoveringTask.Models
                         pre_current_index = current_index;
                         current_index = minIndex;
                         list_greedy_alg[count].Add(current_index);
-                        array_indexes[current_index] = 1;
+                        array_indexes[current_index] = 2;
                         break;
                     }
                 }
+                
                 bool flag4 = false;
                 if (current_index == finish)
                 {
-
-                    count++;
-                    list_greedy_alg.Add(new List<int>());
-                    list_greedy_alg[count].Add(start);
+                    bool is_equal = false;
+                    for (int i = 0; i < list_greedy_alg.Count; i++)
+                    {
+                        int iter = 0;
+                        if (count != i && list_greedy_alg[count].Count == list_greedy_alg[i].Count)
+                        {
+                            for (int j = 0; j < list_greedy_alg[i].Count; j++)
+                            {
+                                if (list_greedy_alg[count][j] == list_greedy_alg[i][j])
+                                {
+                                    iter++;
+                                }
+                            }
+                            if (iter == list_greedy_alg[count].Count)
+                            {
+                                is_equal = true;
+                            }
+                        }
+                    }
+                    if (!is_equal)
+                    {
+                        count++;
+                        list_greedy_alg.Add(new List<int>());
+                        list_greedy_alg[count].Add(start);
+                    }
+                    else
+                    {
+                        list_greedy_alg.RemoveAt(list_greedy_alg.Count - 1);
+                        list_greedy_alg.Add(new List<int>());
+                        list_greedy_alg[count].Add(start);
+                    }
+                    
                     current_index = start;
                     pre_current_index = start;
 
@@ -169,9 +215,31 @@ namespace CoveringTask.Models
                     }
 
                     bool flag3 = true;
+                    int[] array_check = new int[array_indexes.Length];
+
+                    foreach (List<int> list in list_greedy_alg)
+                    {
+                        foreach (int i in list)
+                        {
+                            array_check[i] = 1;
+                        }
+                    }
+
+                    for (int i = 0; i < array_check.Length; i++)
+                    {
+                        array_indexes[i] = array_check[i];
+                    }
+                    kostul++;
+                    if (kostul > 50)
+                    {
+                        list_greedy_alg.RemoveAt(list_greedy_alg.Count - 1);
+                        break;
+                    }
                     for (int i = 0; i < array_indexes.Length; i++)
                     {
-                        if (array_indexes[i] > 0) { }
+
+
+                        if (array_check[i] > 0) { }
                         else
                         {
                             flag3 = false;
@@ -343,6 +411,48 @@ namespace CoveringTask.Models
 
         }
 
+
+        public void Henry_Laboder_Weiht(Algorithms alg)
+        {
+            var rep = Repository.Responses;
+
+            int num = rep[number_task].number_of_nodes;
+            int[,] mas = new int[num, num];
+
+            ScriptEngine engine = Python.CreateEngine();
+            var paths = engine.GetSearchPaths();
+            paths.Add(@"Lib");
+            engine.SetSearchPaths(paths);
+            ScriptScope scope = engine.CreateScope();
+
+            engine.ExecuteFile("HenryLaboder.py", scope);
+
+            dynamic function = scope.GetVariable("main_func");
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            dynamic result = function(ArrayTransformation(rep[number_task].mas_weight, rep[number_task].number_of_nodes), start, finish);
+            stopWatch.Stop();
+            time_henry_laboder_weight = stopWatch.ElapsedMilliseconds;
+            IList<object> list = (IList<object>)result;
+            int n = list.Count;
+
+            //var a = (int)m[1];
+            for (int i = 0; i < n; i++)
+            {
+                list_henry_laboder_weight.Add(new List<int>());
+                var m = (IList<object>)list[i];
+                for (int j = 0; j < m.Count; j++)
+                {
+                    int a = (int)m[j];
+                    list_henry_laboder_weight[i].Add(a);
+                }
+            }
+
+            sum_henry_laboder = SumRouteHenryLaboder(rep[number_task].mas_weight, rep[number_task].number_of_nodes);
+
+        }
+
+
         //метод перетворення двухмірного масиву в зубчастий масив
         private int[][] ArrayTransformation(int[,] mas, int n)
         {
@@ -370,116 +480,25 @@ namespace CoveringTask.Models
             return s;
         }
 
-        //лічильники
-        /*static private int count = 0;
-        static private int iter = 0;*/
-
-        //Метод жадібного проходу до кінцевої точки
-        /*private void Func(int[,] mas, int n, int start, int finish)
-        {
-
-            list_greedy_alg.Add(new List<int>());
-
-            list_greedy_alg[count].Add(start);
-            int[] m = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                m[i] = mas[start, i];
-            }
-            m[finish] = 100000;
-            int mCountIndexNotNull = IndexNotNulArray(m);
-
-            int[] m_finish = new int[n];
-            for (int i = 0; i < n; i++)
-            {
-                m_finish[i] = mas[i, finish];
-            }
-            int m_finishCountIndexNotNull = IndexNotNulArray(m_finish);
-
-            while (true)
-            {
-
-                int min = Min(m);
-                if (m[min] == 100000)
-                {
-                    list_greedy_alg.RemoveAt(count);
-                    count--;
-                    break;
-                }
-                if (min == finish)
-                {
-                    list_greedy_alg[count].Add(min);
-                    break;
-                }
-
-                if (!IsInQueue(min))
-                {
-
-                    list_greedy_alg[count].Add(min);
-                    m = new int[n];
-                    for (int i = 0; i < n; i++)
-                    {
-                        m[i] = mas[min, i];
-                    }
-                }
-                else
-                {
-                    m[min] = 100000;
-                }
-            }
-            count++;
-            iter++;
-            for (int i = 0; i < n; i++)
-            {
-                if (!IsInQueue(i) && iter < m_finishCountIndexNotNull && iter < mCountIndexNotNull)
-                    Func(mas, n, start, finish);
-            }
-        }*/
-
-
-       /* //Метод що викликає алгоритм Дейкстри на не пройдені вершини графу
-        private void Func1(int[,] mas, int n, int start, int finish)
-        {
-            int temp = start;
-            for (int i = 0; i < n; i++)
-            {
-                if (!IsInQueue(i))
-                {
-                    temp = i;
-                    break;
-                }
-            }
-
-            if (temp != start)
-            {
-                list_greedy_alg.Add(new List<int>());
-                var routeToStart = DijkstraWithoutQueue.DijkstraAlgorithm(mas, temp, start);
-                var routeToFinish = DijkstraWithoutQueue.DijkstraAlgorithm(mas, temp, finish);
-                for (int i = routeToStart.Count - 1; i >= 0; i--)
-                {
-                    list_greedy_alg[list_greedy_alg.Count - 1].Add(routeToStart[i]);
-                }
-                for (int i = 1; i < routeToFinish.Count; i++)
-                {
-                    list_greedy_alg[list_greedy_alg.Count - 1].Add(routeToFinish[i]);
-                }
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                if (!IsInQueue(i))
-                {
-                    Func1(mas, n, start, finish);
-                }
-            }
-        }*/
-
 
         //Метод який сумує загальну вартість всіх шляхів
         private int SumRouteGreedy(int[,] mas, int n)
         {
             int s = 0;
             foreach (List<int> list in list_greedy_alg)
+            {
+                for (int i = 1; i < list.Count; i++)
+                {
+                    s += mas[list[i - 1], list[i]];
+                }
+            }
+            return s;
+        }
+
+        private int SumRouteHenryLaboder(int[,] mas, int n)
+        {
+            int s = 0;
+            foreach (List<int> list in list_henry_laboder_weight)
             {
                 for (int i = 1; i < list.Count; i++)
                 {
@@ -503,21 +522,7 @@ namespace CoveringTask.Models
             return count;
         }
 
-        /*//повертає індекс мінмального числа
-        private int Min(int[] numbers)
-        {
-            int min = 100000, minIndex = 0;
-            for (int i = 0; i < numbers.Length; i++)
-            {
-                if (numbers[i] == 0) numbers[i] = 100000;
-                if (min > numbers[i])
-                {
-                    min = numbers[i];
-                    minIndex = i;
-                }
-            }
-            return minIndex;
-        }*/
+        
 
         //перевірка наявності вершини у списку пройдених вершин
         private bool IsInQueue(int m)

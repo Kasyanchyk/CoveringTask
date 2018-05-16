@@ -106,6 +106,19 @@ namespace CoveringTask.Controllers
 
                     try
                     {
+                        if (alg.check_henry_laboder_weight)
+                            alg.Henry_Laboder_Weiht(alg);
+                        else
+                            alg.list_henry_laboder_weight = null;
+                        //throw new NullReferenceException("rez is null");
+                    }
+                    catch
+                    {
+                        alg.list_henry_laboder_weight = null;
+
+                    }
+                    try
+                    {
                         if (alg.check_exact)
                             alg.ExactAlg(alg);
                         else

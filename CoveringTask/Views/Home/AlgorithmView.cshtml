@@ -37,19 +37,23 @@
                     <br />
                     <div>
                         <p>
+                            <input asp-for="@Model.check_henry_laboder_weight" type="checkbox" checked="checked" />
+                            <label>Алгоритм Анрі-Лабодера і Делмаса (для зваженого графа)</label>
+                        </p>
+                        <p>
                             <input asp-for="@Model.cheeck_henre_laboder_non_weignt" type="checkbox" checked="checked" />
                             <label>Алгоритм Анрі-Лабодера і Делмаса (для незваженого графа)</label>
                         </p>
                         <p>
-                            <input asp-for="@Model.check_exact"  type="checkbox" checked="checked" />
+                            <input asp-for="@Model.check_exact" type="checkbox" checked="checked" />
                             <label>Точний алгоритм (для зваженого графа)</label>
                         </p>
                         <p>
-                            <input asp-for="@Model.check_exact_non_weights"  type="checkbox" checked="checked" />
+                            <input asp-for="@Model.check_exact_non_weights" type="checkbox" checked="checked" />
                             <label>Точний алгоритм (для незваженого графа)</label>
                         </p>
                         <p>
-                            <input asp-for="@Model.check_greedy"  type="checkbox" checked="checked" />
+                            <input asp-for="@Model.check_greedy" type="checkbox" checked="checked" />
                             <label>Жадібний алгоритм</label>
                         </p>
                         <p style="color: gray">* Вирішення великих задача займає багато часу. Для вирішенням точним алгоритмом, бажано використовувати графи розмірність до 6-ти вершин.</p>
