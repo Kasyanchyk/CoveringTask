@@ -99,6 +99,12 @@ namespace CoveringTask.Controllers
                     Algorithms.message = String.Format("Виберіть номер задачі в діапазоні в 1 до {0}", rep.Count);
                     return View(alg);
                 }
+
+                else if (alg.start==alg.finish)
+                {
+                    Algorithms.message = "Початкова і термінальна вершина не можуть бути однаковими";
+                    return View(alg);
+                }
                 else if (alg.start < rep[alg.number_task - 1].number_of_nodes && alg.finish < rep[alg.number_task - 1].number_of_nodes)
                 {
                     Algorithms.message = "";

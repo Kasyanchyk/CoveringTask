@@ -99,7 +99,7 @@ namespace CoveringTask.Models
             list_greedy_alg.Add(new List<int>());
             list_greedy_alg[0].Add(start);
             int count = 0;
-            int kostul = 0;
+            int count1 = 0;
             int[] array_indexes = new int[n];
             for (int i = 0; i < n; i++)
             {
@@ -229,8 +229,8 @@ namespace CoveringTask.Models
                     {
                         array_indexes[i] = array_check[i];
                     }
-                    kostul++;
-                    if (kostul > 50)
+                    count1  ++;
+                    if (count1 > 50)
                     {
                         list_greedy_alg.RemoveAt(list_greedy_alg.Count - 1);
                         break;
